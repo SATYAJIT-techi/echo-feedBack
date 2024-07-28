@@ -3,11 +3,10 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { axios } from "axios";
+import axios from "axios";
 
 export default function LoginPage() {
   const [user, setUser] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -18,23 +17,20 @@ export default function LoginPage() {
     console.log("Login Page Mounted");
   }, []);
 
-  const onSignup = () => {
-    console.log("Signup", user);
+  const onLogin = async () => {
+    try {
+      const res = await axios.post("/api/users/login", user);
+      console.log("Login response", res);
+    } catch (error: any) {
+      console.log("Error", error?.message);
+    }
   };
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
       <h1>{loading ? "Processing" : "Signup"}</h1>
       <hr />
-      <label htmlFor='username'>username</label>
-      <input
-        className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black'
-        id='username'
-        type='text'
-        value={user.username}
-        onChange={(e) => setUser({ ...user, username: e.target.value })}
-        placeholder='username'
-      />
+
       <label htmlFor='email'>email</label>
       <input
         className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black'
@@ -54,12 +50,13 @@ export default function LoginPage() {
         placeholder='password'
       />
       <button
-        onClick={onSignup}
+        onClick={onLogin}
+        type='submit'
         className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600'
       >
-        {buttonDisabled ? "No signup" : "Signup"}
+        {buttonDisabled ? "No Login" : "Login"}
       </button>
-      <Link href='/login'>Visit login page</Link>
+      <Link href='/signup'>Visit SignUp page</Link>
     </div>
   );
 }

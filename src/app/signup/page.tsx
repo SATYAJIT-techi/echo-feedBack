@@ -3,8 +3,9 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { axios } from "axios";
+import axios from "axios";
 export default function SignupPage() {
+  const router = useRouter();
   const [user, setUser] = useState({
     username: "",
     email: "",
@@ -17,8 +18,17 @@ export default function SignupPage() {
     console.log("Login Page Mounted");
   }, []);
 
-  const onSignup = () => {
-    console.log("Signup", user);
+  const onSignup = async () => {
+    try {
+      setLoading(true);
+      const res = await axios.post("/api/users/signup", user);
+      console.log("Signup response", res.data);
+      router.push("/login");
+    } catch (error: any) {
+      console.log("Error", error?.message);
+    } finally {
+      setLoading(false);
+    }
   };
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
