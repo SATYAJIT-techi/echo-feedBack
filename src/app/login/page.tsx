@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 
 export default function LoginPage() {
+  const router = useRouter();
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -21,6 +22,10 @@ export default function LoginPage() {
     try {
       const res = await axios.post("/api/users/login", user);
       console.log("Login response", res);
+      if (res?.data?.success) {
+        console.log("Login successful");
+        router.push("/profile");
+      }
     } catch (error: any) {
       console.log("Error", error?.message);
     }
@@ -28,7 +33,7 @@ export default function LoginPage() {
 
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
-      <h1>{loading ? "Processing" : "Signup"}</h1>
+      <h1>{loading ? "Processing" : "Login"}</h1>
       <hr />
 
       <label htmlFor='email'>email</label>
