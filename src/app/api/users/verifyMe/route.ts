@@ -7,6 +7,8 @@ connect();
 export async function GET(request: NextRequest) {
   try {
     const userId = getDataFromToken(request);
+    console.log("verify menext", userId);
+
     const data = await User.findOne({ _id: userId }).select("-password");
     return NextResponse.json(data, { status: 200 });
   } catch (error: any) {
