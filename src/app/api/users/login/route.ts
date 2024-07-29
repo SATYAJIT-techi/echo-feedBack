@@ -10,7 +10,6 @@ export async function POST(req: NextRequest) {
   try {
     const reqBody = await req.json();
     const { email, password } = reqBody;
-    console.log("Request body------", reqBody);
 
     const user = await User.findOne({ email });
     if (!user) {
@@ -21,7 +20,6 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
     }
-    console.log("user found-------", user);
     const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {
       return NextResponse.json(
@@ -38,6 +36,7 @@ export async function POST(req: NextRequest) {
       username: user.username,
     };
     // create token
+
     const token = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
       expiresIn: "1d",
     });

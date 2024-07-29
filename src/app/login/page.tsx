@@ -31,6 +31,10 @@ export default function LoginPage() {
     }
   };
 
+  const onForgotPassword = async () => {
+    await axios.post("/api/users/forgotpassword", { email: user.email });
+  };
+
   return (
     <div className='flex flex-col items-center justify-center min-h-screen py-2'>
       <h1>{loading ? "Processing" : "Login"}</h1>
@@ -60,6 +64,13 @@ export default function LoginPage() {
         className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600'
       >
         {buttonDisabled ? "No Login" : "Login"}
+      </button>
+      <button
+        onClick={onForgotPassword}
+        type='submit'
+        className='p-2 border bg-red-500 border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600'
+      >
+        {"Forgot Password"}
       </button>
       <Link href='/signup'>Visit SignUp page</Link>
     </div>

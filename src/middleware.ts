@@ -1,8 +1,11 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+// actual logic path before api request can be made
 export function middleware(request: NextRequest) {
-  const path = request.nextUrl.pathname;
+  const path = request.nextUrl.pathname; //give the current pathname
+
+  // this are public without token
 
   const isPublicPath =
     path === "/login" || path === "/signup" || path === "/verifyemail";
