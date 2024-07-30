@@ -5,11 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 
-export default function LoginPage() {
+export default function ForgotPassword() {
   const router = useRouter();
   const [user, setUser] = useState({
     email: "",
-    password: "",
   });
   const [buttonDisabled, setButtonDisabled] = useState(false);
 
@@ -18,22 +17,12 @@ export default function LoginPage() {
     console.log("Login Page Mounted");
   }, []);
 
-  const onLogin = async () => {
+  const onForgotPassword = async () => {
     try {
-      const res = await axios.post("/api/users/login", user);
-      console.log("Login response", res);
-      if (res?.data?.success) {
-        console.log("Login successful");
-        router.push("/profile");
-      }
+      await axios.post("/api/users/forgotpassword", { email: user.email });
     } catch (error: any) {
       console.log("Error", error?.message);
     }
-  };
-
-  const onForgotPassword = async () => {
-    // await axios.post("/api/users/forgotpassword", { email: user.email });
-    router.push("/forgotpassword");
   };
 
   return (
@@ -50,28 +39,13 @@ export default function LoginPage() {
         onChange={(e) => setUser({ ...user, email: e.target.value })}
         placeholder='email'
       />
-      <label htmlFor='password'>password</label>
-      <input
-        className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black'
-        id='password'
-        type='password'
-        value={user.password}
-        onChange={(e) => setUser({ ...user, password: e.target.value })}
-        placeholder='password'
-      />
-      <button
-        onClick={onLogin}
-        type='submit'
-        className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600'
-      >
-        {buttonDisabled ? "No Login" : "Login"}
-      </button>
+
       <button
         onClick={onForgotPassword}
         type='submit'
         className='p-2 border bg-red-500 border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600'
       >
-        {"Forgot Password"}
+        {"Get Reset Link"}
       </button>
       <Link href='/signup'>Visit SignUp page</Link>
     </div>
