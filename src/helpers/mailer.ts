@@ -18,6 +18,9 @@ export const sendMail = async ({ email, emailType, userId }: any) => {
       });
     }
 
+    const user = await User.findById(userId);
+    console.log("user found and updated", user);
+
     // mailer
 
     var transport = nodemailer.createTransport({

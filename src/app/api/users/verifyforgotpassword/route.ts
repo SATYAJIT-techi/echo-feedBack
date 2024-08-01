@@ -21,7 +21,7 @@ export async function POST(request: NextRequest) {
     }); //token expiry time is greater than current time
 
     if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+      return NextResponse.json({ message: "User not found", status: 404 });
     }
 
     user.isVerified = true;
@@ -30,12 +30,13 @@ export async function POST(request: NextRequest) {
     await user.save();
 
     return NextResponse.json({
-      message: "user verified successfully",
+      message: "User verified successfully",
       success: true,
       user: user,
+      status: 200,
     });
   } catch (error: any) {
     console.log("Error", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message, status: 500 });
   }
 }

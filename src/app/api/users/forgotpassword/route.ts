@@ -10,19 +10,17 @@ export async function POST(request: NextRequest) {
     const { email } = requestBody;
     const user = await User.findOne({ email });
     if (!user) {
-      return NextResponse.json(
-        { error: "User does not exist" },
-        { status: 400 }
-      );
+      return NextResponse.json({ message: "User does not exist", status: 400 });
     }
 
-    await sendMail({ email, emailType: "RESET", userId: user._id });
-    return NextResponse.json(
-      { message: "Email sent successfully" },
-      { status: 200 }
-    );
+    const res = await sendMail({ email, emailType: "RESET", userId: user._id });
+    return NextResponse.json({
+      message: "Email sent successfully",
+      status: 200,
+      success: true,
+    });
   } catch (error: any) {
     console.log("Error", error);
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    return NextResponse.json({ message: error.message, status: 500 });
   }
 }

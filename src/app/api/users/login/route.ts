@@ -13,21 +13,17 @@ export async function POST(req: NextRequest) {
 
     const user = await User.findOne({ email });
     if (!user) {
-      return NextResponse.json(
-        {
-          error: "User does not exist",
-        },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        message: "User does not exist",
+        status: 400,
+      });
     }
     const validPassword = await bcryptjs.compare(password, user.password);
     if (!validPassword) {
-      return NextResponse.json(
-        {
-          error: "Invalid password",
-        },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        message: "Invalid password",
+        status: 400,
+      });
     }
     // token data
     const tokenData = {
@@ -41,14 +37,12 @@ export async function POST(req: NextRequest) {
       expiresIn: "1d",
     });
 
-    const response = NextResponse.json(
-      {
-        message: "Login successful",
-        success: true,
-        token,
-      },
-      { status: 200 }
-    );
+    const response = NextResponse.json({
+      message: "Login successful",
+      status: 200,
+      success: true,
+      token,
+    });
     response.cookies.set("token", token, {
       httpOnly: true,
     });
