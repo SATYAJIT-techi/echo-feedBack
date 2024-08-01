@@ -60,14 +60,6 @@ export default function ForgotPassword() {
         </LabelInputContainer>
 
         <div className='bg-gradient-to-r from-transparent via-neutral-300 dark:via-neutral-700 to-transparent my-8 h-[1px] w-full' />
-        {/* <button
-          onClick={onForgotPassword}
-          type='submit'
-          className='p-2 border bg-red-500 border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600'
-        >
-          {"Get Reset Link"}
-        </button>
-        <Link href='/signup'>Visit SignUp page</Link> */}
         <div className='flex flex-col space-y-4'>
           <button
             disabled={loading}

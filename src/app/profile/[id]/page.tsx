@@ -4,19 +4,22 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 export default function UserProfile({ params }: any) {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getUserQuestions();
+  }, []);
 
   const [response, setResponse] = useState("");
 
-  // const getUserQuestions = async () => {
-  //   try {
-  //     const res = await axios.get("/api/users/questions");
+  // this api get the questions and user  **no token required**
 
-  //   } catch (error: any) {
-  //     console.log("getUserQuestions Error", error?.message);
-
-  //   }
-  // }
+  const getUserQuestions = async () => {
+    try {
+      const res = await axios.get("/api/users/questions");
+      console.log("getUserQuestions", res);
+    } catch (error: any) {
+      console.log("getUserQuestions Error", error?.message);
+    }
+  };
 
   const handleResponse = async () => {
     try {

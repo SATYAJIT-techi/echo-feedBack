@@ -43,7 +43,6 @@ export default function Resetpassword() {
       });
       if (res?.data?.success) {
         toast.success(res?.data?.message);
-        console.log(res?.data?.user);
         setUser(res?.data?.user);
       } else {
         toast.error(res?.data?.message);
@@ -73,7 +72,7 @@ export default function Resetpassword() {
       <form className='my-8' onSubmit={onSubmitPassword}>
         <LabelInputContainer className='mb-4'>
           {user && (
-            <Label htmlFor='email'>{`Reset Password for : ${user.email}`}</Label>
+            <Label htmlFor='email'>{`Reset Password for : ${user}`}</Label>
           )}
           <input
             className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600 text-black'
