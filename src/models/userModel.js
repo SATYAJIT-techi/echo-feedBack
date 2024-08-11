@@ -15,9 +15,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Password is required"],
     },
-    question: {
-        type: String,
-    },
+    // question: {
+    //     type: String,
+    // },
     // isVerified: {
     //     type: Boolean,
     //     default: false,
@@ -26,9 +26,9 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    userAnswer: [{
-        type: String
-    }],
+    // userAnswer: [{
+    //     type: String
+    // }],
     forgotPasswordToken: String,
     forgotPasswordTokenExpiry: Date,
     verifyToken: String,
