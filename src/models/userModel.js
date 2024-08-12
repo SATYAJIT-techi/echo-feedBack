@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { type } from "os";
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -15,6 +16,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, "Password is required"],
     },
+    isAdmin: {
+        type: Boolean,
+        default: false,
+    },
+    userResponse: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'response'
+    }],
     // question: {
     //     type: String,
     // },
@@ -22,10 +31,6 @@ const userSchema = new mongoose.Schema({
     //     type: Boolean,
     //     default: false,
     // },
-    isAdmin: {
-        type: Boolean,
-        default: false,
-    },
     // userAnswer: [{
     //     type: String
     // }],

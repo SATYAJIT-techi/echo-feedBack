@@ -40,6 +40,7 @@ export default function ProfilePage() {
       const res = await axios.post("/api/users/questions", {
         userQuestion: question,
       });
+      console.log("res", res);
       if (res.data.success) {
         toast.success(res.data.message);
         setUserLink(res.data.data);
@@ -47,6 +48,7 @@ export default function ProfilePage() {
         toast.error(res.data.message);
       }
     } catch (error: any) {
+      toast.error(error?.message);
       console.log(" handlePusblishQuestion Error", error?.message);
     }
   };
@@ -143,14 +145,14 @@ export default function ProfilePage() {
           Ask Question
         </button>
       </div> */}
-      {/* <div className='relative bottom-0 left-0 flex'>
+      <div className='relative bottom-0 left-0 flex'>
         <button
           onClick={onLogout}
           className='p-2 border border-gray-300 rounded-lg mb-4 focus:outline-none focus:border-gray-600'
         >
           Logout
         </button>
-      </div> */}
+      </div>
     </div>
   );
 }
