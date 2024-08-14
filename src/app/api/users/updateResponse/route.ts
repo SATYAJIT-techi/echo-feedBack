@@ -1,4 +1,4 @@
-import User from "@/models/userModel";
+import UserResponse from "@/models/responseModel";
 import { NextResponse, NextRequest } from "next/server";
 import { getDataFromToken } from "@/helpers/getDataFromToken";
 import { connect } from "@/dbConfig/dbConfig";
@@ -12,8 +12,9 @@ export async function POST(request: NextRequest) {
   try {
     const reqBody = await request.json();
     const { userAnswer, id, userId } = reqBody;
-    const data = await User.findOne({ _id: userId });
-    await data.updateOne({ $push: { userResponse: userAnswer } });
+    const data = await UserResponse.findOne({ _id: id, user: userId });
+    await data.updateOne({ $push: { userAnswer: userAnswer } });
+    await data.save();
     console.log("data", data);
     if (!data) {
       return NextResponse.json(

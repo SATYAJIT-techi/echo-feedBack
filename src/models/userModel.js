@@ -20,10 +20,10 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false,
     },
-    userResponse: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'response'
-    }],
+    // userResponse: [{
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'response'
+    // }],
     // question: {
     //     type: String,
     // },
